@@ -17,9 +17,10 @@ public class CouponIssueRepository {
         return queryFactory.selectFrom(couponIssue)
                 .where(couponIssue.couponId.eq(couponId))
                 .where(couponIssue.userId.eq(userId))
-                .fetchFirst(); //couponId, UserID 일치하는 첫번째 결과를 반환
+                .fetchFirst();
     }
 }
+
 
 /*
 v0.2.2 CouponIssue Validation - CouponIssue 트랜잭션 기능

@@ -25,19 +25,14 @@ public class CouponIssue extends BaseTimeEntity {
     @Column(nullable = false)
     private Long userId;
 
-    @Column(nullable = false)
-    @CreatedDate
-    private LocalDateTime dateIssued;
 
-    @PrePersist
-    public void prePersist() {  // @PrePersist 메서드를 추가하여 dateIssued가 null일 경우 자동으로 현재 시간을 설정
-        if (dateIssued == null) {
-            dateIssued = LocalDateTime.now();
-        }
-    }
+    @CreatedDate
+    @Column(nullable = false)
+    private LocalDateTime dateIssued;
 
     private LocalDateTime dateUsed;
 }
+
 
 
 /*

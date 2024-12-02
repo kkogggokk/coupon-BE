@@ -1,12 +1,14 @@
 package com.example.couponcore.model;
 
 import com.example.couponcore.exception.CouponIssueException;
-import com.example.couponcore.exception.ErrorCode;
 import jakarta.persistence.*;
 import lombok.*;
-import org.springframework.cglib.core.Local;
 
 import java.time.LocalDateTime;
+import java.util.concurrent.atomic.AtomicInteger;
+
+import static com.example.couponcore.exception.ErrorCode.INVALID_COUPON_ISSUE_DATE;
+import static com.example.couponcore.exception.ErrorCode.INVALID_COUPON_ISSUE_QUANTITY;
 
 @Builder
 @NoArgsConstructor
@@ -16,7 +18,7 @@ import java.time.LocalDateTime;
 @Entity
 @ToString
 @Table(name = "coupons")
-public class Coupon extends BaseTimeEntity{
+public class Coupon extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,7 +34,10 @@ public class Coupon extends BaseTimeEntity{
     private Integer totalQuantity;
 
     @Column(nullable = false)
-    private  int issuedQuantity;
+    private int issuedQuantity;
+
+    @Column(nullable = false)
+    private int discountAmount;
 
     @Column(nullable = false)
     private int minAvailableAmount;
@@ -43,15 +48,14 @@ public class Coupon extends BaseTimeEntity{
     @Column(nullable = false)
     private LocalDateTime dateIssueEnd;
 
-    // v0.2.1 쿠폰 검증기능(coupon validataion)
-    public boolean availableIssueQuantity(){    //쿠폰 발급 수량 검증: availableIssueQuantity()
-        if(totalQuantity == null){              //totalQuntity null 허용하므로 true 반환
+    public boolean availableIssueQuantity() {
+        if (totalQuantity == null) {
             return true;
         }
-        return totalQuantity > issuedQuantity;  // 쿠폰 발급 가능(true), 쿠폰 발급 실패(false)
+        return totalQuantity > issuedQuantity;
     }
 
-    public boolean availableIssueDate(){        // 이벤트 기한 검증: availableIssueDate()
+    public boolean availableIssueDate() {
         LocalDateTime now = LocalDateTime.now();
         return dateIssueStart.isBefore(now) && dateIssueEnd.isAfter(now);
     }
@@ -61,19 +65,17 @@ public class Coupon extends BaseTimeEntity{
         return dateIssueEnd.isBefore(now) || !availableIssueQuantity();
     }
 
-    public void issue(){
-        // 수량검증, 기간검증
-        if(!availableIssueQuantity()){
-//            throw new RuntimeException("수량검증");
-            throw new CouponIssueException(ErrorCode.INVALID_COUPON_ISSUE_QUANTITY, "발급 가능한 수량을 초과합니다. total : %s, issued: %s".formatted(totalQuantity, issuedQuantity));
+    public void issue() {
+        if (!availableIssueQuantity()) {
+            throw new CouponIssueException(INVALID_COUPON_ISSUE_QUANTITY, "발급 가능한 수량을 초과합니다. total : %s, issued: %s".formatted(totalQuantity, issuedQuantity));
         }
-        if(!availableIssueDate()){
-//            throw new RuntimeException("기간검증");
-            throw new CouponIssueException(ErrorCode.INVALID_COUPON_ISSUE_DATE, "발급 가능한 일자가 아닙니다. requestDate: %s, issueStart: %s, issueEnd: %s".formatted(LocalDateTime.now(), dateIssueStart, dateIssueEnd));
+        if (!availableIssueDate()) {
+            throw new CouponIssueException(INVALID_COUPON_ISSUE_DATE, "발급 가능한 일자가 아닙니다. request : %s, issueStart: %s, issueEnd: %s".formatted(LocalDateTime.now(), dateIssueStart, dateIssueEnd));
         }
         issuedQuantity++;
     }
 }
+
 
 /*
 v0.2.0 MySQL Entity setting
