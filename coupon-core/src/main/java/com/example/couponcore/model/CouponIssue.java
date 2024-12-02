@@ -30,10 +30,14 @@ public class CouponIssue extends BaseTimeEntity {
     private LocalDateTime dateIssued;
 
     private LocalDateTime dateUsed;
+
 }
 
 
 /*
-coupon_issues 테이블의 엔티티 생성 @Table(name="coupon_issues")
+v0.2.0 MySQL Entity setting
+- coupon_issues 테이블의 엔티티 생성 @Table(name="coupon_issues")
 - 공통적으로 사용하는 BaseTimeEntity를 상속받음
+
+
 */
