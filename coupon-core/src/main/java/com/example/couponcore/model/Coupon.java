@@ -27,7 +27,7 @@ public class Coupon extends BaseTimeEntity{
 
     @Column(nullable = false)
     @Enumerated(value = EnumType.STRING)
-    private CouponType couponTpe;
+    private CouponType couponType;
 
     private Integer totalQuantity;
 

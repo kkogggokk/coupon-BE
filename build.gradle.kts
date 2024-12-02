@@ -43,6 +43,12 @@ subprojects {
         runtimeOnly("com.mysql:mysql-connector-j")
         implementation("org.springframework.boot:spring-boot-starter")
 
+        //v0.2.2 CouponIssue Validation - QueryDSL 쿼리조회
+        implementation("com.querydsl:querydsl-jpa:5.0.0:jakarta")
+        annotationProcessor("com.querydsl:querydsl-apt:5.0.0:jakarta")
+        annotationProcessor("jakarta.annotation:jakarta.annotation-api")
+        annotationProcessor("jakarta.persistence:jakarta.persistence-api")
+
         //redis 추가
 //        implementation("org.springframework.boot:spring-boot-starter-data-redis")
 
@@ -50,17 +56,11 @@ subprojects {
         implementation("org.springframework.boot:spring-boot-starter-actuator")
         implementation("io.micrometer:micrometer-registry-prometheus")
 
-        //QueryDSL
-        implementation("com.querydsl:querydsl-jpa:5.0.0:jakarta")
-        annotationProcessor("com.querydsl:querydsl-apt:5.0.0:jakarta")
-        annotationProcessor("jakarta.annotation:jakarta.annotation-api")
-        annotationProcessor("jakarta.persistence:jakarta.persistence-api")
-
         testImplementation("org.springframework.boot:spring-boot-starter-test")
     }
 }
 
-// 테스트 작업 비활성화 ?
+// 테스트 작업 비활성화
 tasks.withType<Test> {
     useJUnitPlatform()
 }
