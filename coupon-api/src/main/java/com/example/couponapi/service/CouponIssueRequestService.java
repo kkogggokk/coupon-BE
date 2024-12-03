@@ -4,6 +4,7 @@ import com.example.couponapi.controller.dto.CouponIssueRequestDto;
 //import com.example.couponcore.component.DistributeLockExecutor;
 //import com.example.couponcore.service.AsyncCouponIssueServiceV1;
 //import com.example.couponcore.service.AsyncCouponIssueServiceV2;
+import com.example.couponcore.component.DistributeLockExecutor;
 import com.example.couponcore.service.CouponIssueService;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -19,11 +20,18 @@ public class CouponIssueRequestService {
 //    private final AsyncCouponIssueServiceV2 asyncCouponIssueServiceV2;
 //    private final DistributeLockExecutor distributeLockExecutor;
     private final Logger log = LoggerFactory.getLogger(this.getClass().getSimpleName());
+    private final DistributeLockExecutor distributeLockExecutor;
 
     public void issueRequestV1(CouponIssueRequestDto requestDto) {
+        /* -----v1.1.0 coupon-api(Synchronized)
         synchronized (this){
             couponIssueService.issue(requestDto.couponId(), requestDto.userId());
-        }
+        } -----*/
+
+        // v1.2.0 coupon-api(Redis Lock)
+        distributeLockExecutor.execute ("lock_"+requestDto.couponId(), 1000,1000,() -> {
+            couponIssueService.issue(requestDto.couponId(), requestDto.userId());
+        });
         log.info("쿠폰 발급 완료. couponId: %s, userId: %s".formatted(requestDto.couponId(), requestDto.userId()));
     }
 
