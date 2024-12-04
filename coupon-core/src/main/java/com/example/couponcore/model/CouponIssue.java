@@ -1,7 +1,10 @@
 package com.example.couponcore.model;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
 
 import java.time.LocalDateTime;
@@ -10,7 +13,6 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
-@Setter
 @Entity
 @Table(name = "coupon_issues")
 public class CouponIssue extends BaseTimeEntity {
@@ -25,9 +27,8 @@ public class CouponIssue extends BaseTimeEntity {
     @Column(nullable = false)
     private Long userId;
 
-
-    @CreatedDate
     @Column(nullable = false)
+    @CreatedDate
     private LocalDateTime dateIssued;
 
     private LocalDateTime dateUsed;

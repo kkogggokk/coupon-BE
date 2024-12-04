@@ -2,10 +2,12 @@ package com.example.couponcore.model;
 
 import com.example.couponcore.exception.CouponIssueException;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
-import java.util.concurrent.atomic.AtomicInteger;
 
 import static com.example.couponcore.exception.ErrorCode.INVALID_COUPON_ISSUE_DATE;
 import static com.example.couponcore.exception.ErrorCode.INVALID_COUPON_ISSUE_QUANTITY;
@@ -14,9 +16,7 @@ import static com.example.couponcore.exception.ErrorCode.INVALID_COUPON_ISSUE_QU
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
-@Setter
 @Entity
-@ToString
 @Table(name = "coupons")
 public class Coupon extends BaseTimeEntity {
 
@@ -75,6 +75,7 @@ public class Coupon extends BaseTimeEntity {
         issuedQuantity++;
     }
 }
+
 
 
 /*

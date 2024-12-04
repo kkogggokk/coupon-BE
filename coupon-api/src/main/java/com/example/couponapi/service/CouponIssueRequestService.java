@@ -18,9 +18,9 @@ public class CouponIssueRequestService {
     private final CouponIssueService couponIssueService;
 //    private final AsyncCouponIssueServiceV1 asyncCouponIssueServiceV1;
 //    private final AsyncCouponIssueServiceV2 asyncCouponIssueServiceV2;
-//    private final DistributeLockExecutor distributeLockExecutor;
-    private final Logger log = LoggerFactory.getLogger(this.getClass().getSimpleName());
     private final DistributeLockExecutor distributeLockExecutor;
+    private final Logger log = LoggerFactory.getLogger(this.getClass().getSimpleName());
+
 
     public void issueRequestV1(CouponIssueRequestDto requestDto) {
         /* -----v1.1.0 coupon-api(Synchronized)

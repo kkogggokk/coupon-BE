@@ -16,3 +16,4 @@ public class TestConfig {
 v0.2.2 CouponIssue Validation - CouponIssue 트랜잭션 기능
 - application-core.yml test 환경설정 연결하기 위한 클래스
  */
+
