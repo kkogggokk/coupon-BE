@@ -26,25 +26,27 @@ public class CouponIssueService {
 
     @Transactional
     public void issue(long couponId, long userId) {
-        Coupon coupon = findCoupon(couponId);
+        Coupon coupon = findCouponWithLock(couponId);   // CHECK - findCoupon, findCouponWithLock
         coupon.issue();
         saveCouponIssue(couponId, userId);
 //        publishCouponEvent(coupon);
     }
 
-    @Transactional(readOnly = true)
-    public Coupon findCoupon(long couponId) {
-        return couponJpaRepository.findById(couponId).orElseThrow(() -> {
-            throw new CouponIssueException(COUPON_NOT_EXIST, "쿠폰 정책이 존재하지 않습니다. %s".formatted(couponId));
-        });
-    }
-
-//    @Transactional
-//    public Coupon findCouponWithLock(long couponId) {
-//        return couponJpaRepository.findCouponWithLock(couponId).orElseThrow(() -> {
+    // v1.1 ~ v1.2
+//    @Transactional(readOnly = true)
+//    public Coupon findCoupon(long couponId) { // MySQL Lock 이전
+//        return couponJpaRepository.findById(couponId).orElseThrow(() -> {
 //            throw new CouponIssueException(COUPON_NOT_EXIST, "쿠폰 정책이 존재하지 않습니다. %s".formatted(couponId));
 //        });
 //    }
+
+//     v1.3.0 coupon-api(MySQL Lock)
+    @Transactional
+    public Coupon findCouponWithLock(long couponId) {
+        return couponJpaRepository.findCouponWithLock(couponId).orElseThrow(() -> {
+            throw new CouponIssueException(COUPON_NOT_EXIST, "쿠폰 정책이 존재하지 않습니다. %s".formatted(couponId));
+        });
+    }
 
     @Transactional
     public CouponIssue saveCouponIssue(long couponId, long userId) {
