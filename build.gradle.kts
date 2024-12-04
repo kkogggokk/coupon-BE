@@ -37,20 +37,22 @@ subprojects {
 
     dependencies {
         implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+
+        //v2.* Redis 도입 및 비동기구조
+        implementation ("org.springframework.boot:spring-boot-starter-data-redis")
+        implementation ("org.redisson:redisson-spring-boot-starter:3.16.4")
+
         compileOnly("org.projectlombok:lombok")
         annotationProcessor("org.projectlombok:lombok")
         runtimeOnly("com.h2database:h2")
         runtimeOnly("com.mysql:mysql-connector-j")
         implementation("org.springframework.boot:spring-boot-starter")
 
-        //v0.2.2 CouponIssue Validation - QueryDSL 쿼리조회
+        //v0.2.2 QueryDSL 쿼리조회
         implementation("com.querydsl:querydsl-jpa:5.0.0:jakarta")
         annotationProcessor("com.querydsl:querydsl-apt:5.0.0:jakarta")
         annotationProcessor("jakarta.annotation:jakarta.annotation-api")
         annotationProcessor("jakarta.persistence:jakarta.persistence-api")
-
-        //v2. Redis 도입 및 비동기구조
-        implementation("org.springframework.boot:spring-boot-starter-data-redis")
 
         //prometheus
         implementation("org.springframework.boot:spring-boot-starter-actuator")

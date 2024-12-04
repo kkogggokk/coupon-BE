@@ -14,17 +14,14 @@ import static com.example.couponcore.util.CouponRedisUtils.getIssueRequestQueueK
 
 @RequiredArgsConstructor
 @Repository
-public class RedisRepository {
+public class RedisRepository {  // v2.* Async
 
-    // v2.1.1 Async :coupon-api(set, /v1/issue-async)
     private final RedisTemplate<String, String> redisTemplate;
-//    private final RedisScript<String> issueScript = issueRequestScript(); // v2.1.2 Async :coupon-api(Script, /v2/issue-async)
     private final String issueRequestQueueKey = getIssueRequestQueueKey();
     private final ObjectMapper objectMapper = new ObjectMapper();
+    //    private final RedisScript<String> issueScript = issueRequestScript(); // v2.3.0 Async coupon-api(Script, /v2/issue-async)
 
-    public Boolean zAdd(String key, String value, double score) {
-        return redisTemplate.opsForZSet().addIfAbsent(key, value, score);
-    }
+    public Boolean zAdd(String key, String value, double score) { return redisTemplate.opsForZSet().addIfAbsent(key, value, score);}
 
     public Long sAdd(String key, String value) {
         return redisTemplate.opsForSet().add(key, value);
@@ -53,7 +50,8 @@ public class RedisRepository {
     public Long lSize(String key) {
         return redisTemplate.opsForList().size(key);
     }
-//
+
+    // v2.3.0 Async coupon-api(Script, /v2/issue-async)
 //    public void issueRequest(long couponId, long userId, int totalIssueQuantity) {
 //        String issueRequestKey = getIssueRequestKey(couponId);
 //        CouponIssueRequest couponIssueRequest = new CouponIssueRequest(couponId, userId);

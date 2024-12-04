@@ -23,7 +23,7 @@ import static com.example.couponcore.exception.ErrorCode.*;
 import static com.example.couponcore.util.CouponRedisUtils.getIssueRequestKey;
 import static com.example.couponcore.util.CouponRedisUtils.getIssueRequestQueueKey;
 
-class AsyncCouponIssueServiceV1Test extends TestConfig {
+class AsyncCouponIssueServiceV1Test extends TestConfig {    // v2.* 
 
     @Autowired
     AsyncCouponIssueServiceV1 sut;

@@ -13,7 +13,7 @@ import java.util.stream.IntStream;
 
 import static com.example.couponcore.util.CouponRedisUtils.getIssueRequestKey;
 
-class CouponIssueRedisServiceTest extends TestConfig {  // v2.1.1 Async :coupon-api(set, /v1/issue-async)
+class CouponIssueRedisServiceTest extends TestConfig {  // v2.* Async
 
     @Autowired
     CouponIssueRedisService sut;
