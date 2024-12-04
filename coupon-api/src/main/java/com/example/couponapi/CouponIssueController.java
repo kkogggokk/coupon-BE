@@ -20,12 +20,13 @@ public class CouponIssueController {
         return new CouponIssueResponseDto(true, null);
     }
 
-//    @PostMapping("/v1/issue-async")
-//    public CouponIssueResponseDto issueAsyncV1(@RequestBody CouponIssueRequestDto body) {
-//        couponIssueRequestService.asyncIssueRequestV1(body);
-//        return new CouponIssueResponseDto(true, null);
-//    }
-//
+    // v2.1.0 Async :coupon-api(set, /v1/issue-async)
+    @PostMapping("/v1/issue-async")
+    public CouponIssueResponseDto issueAsyncV1(@RequestBody CouponIssueRequestDto body) {
+        couponIssueRequestService.asyncIssueRequestV1(body);
+        return new CouponIssueResponseDto(true, null);
+    }
+
 //    @PostMapping("/v2/issue-async")
 //    public CouponIssueResponseDto issueAsyncV2(@RequestBody CouponIssueRequestDto body) {
 //        couponIssueRequestService.asyncIssueRequestV2(body);

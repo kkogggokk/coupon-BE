@@ -33,14 +33,14 @@ public class CouponIssueService {
     }
 
     // v1.1 ~ v1.2
-//    @Transactional(readOnly = true)
-//    public Coupon findCoupon(long couponId) { // MySQL Lock 이전
-//        return couponJpaRepository.findById(couponId).orElseThrow(() -> {
-//            throw new CouponIssueException(COUPON_NOT_EXIST, "쿠폰 정책이 존재하지 않습니다. %s".formatted(couponId));
-//        });
-//    }
+    @Transactional(readOnly = true)
+    public Coupon findCoupon(long couponId) { // MySQL Lock 이전
+        return couponJpaRepository.findById(couponId).orElseThrow(() -> {
+            throw new CouponIssueException(COUPON_NOT_EXIST, "쿠폰 정책이 존재하지 않습니다. %s".formatted(couponId));
+        });
+    }
 
-//     v1.3.0 coupon-api(MySQL Lock)
+    // v1.3.0 coupon-api(MySQL Lock)
     @Transactional
     public Coupon findCouponWithLock(long couponId) {
         return couponJpaRepository.findCouponWithLock(couponId).orElseThrow(() -> {

@@ -49,8 +49,8 @@ subprojects {
         annotationProcessor("jakarta.annotation:jakarta.annotation-api")
         annotationProcessor("jakarta.persistence:jakarta.persistence-api")
 
-        //redis 추가
-//        implementation("org.springframework.boot:spring-boot-starter-data-redis")
+        //v2. Redis 도입 및 비동기구조
+        implementation("org.springframework.boot:spring-boot-starter-data-redis")
 
         //prometheus
         implementation("org.springframework.boot:spring-boot-starter-actuator")
