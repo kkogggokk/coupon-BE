@@ -16,7 +16,7 @@ import static com.example.couponcore.util.CouponRedisUtils.getIssueRequestQueueK
 @Repository
 public class RedisRepository {
 
-    // v2.1.0 Async :coupon-api(set, /v1/issue-async)
+    // v2.1.1 Async :coupon-api(set, /v1/issue-async)
     private final RedisTemplate<String, String> redisTemplate;
 //    private final RedisScript<String> issueScript = issueRequestScript(); // v2.1.2 Async :coupon-api(Script, /v2/issue-async)
     private final String issueRequestQueueKey = getIssueRequestQueueKey();
@@ -49,10 +49,10 @@ public class RedisRepository {
     public String lPop(String key) {
         return redisTemplate.opsForList().leftPop(key);
     }
-    // v2.1.2 Async :coupon-api(Script, /v2/issue-async)
-//    public Long lSize(String key) {
-//        return redisTemplate.opsForList().size(key);
-//    }
+
+    public Long lSize(String key) {
+        return redisTemplate.opsForList().size(key);
+    }
 //
 //    public void issueRequest(long couponId, long userId, int totalIssueQuantity) {
 //        String issueRequestKey = getIssueRequestKey(couponId);

@@ -38,11 +38,11 @@ public class CouponIssueRequestService {
         log.info("쿠폰 발급 완료. couponId: %s, userId: %s".formatted(requestDto.couponId(), requestDto.userId()));
     }
 
-    // v2.1.0 Async :coupon-api(set, /v1/issue-async)
+    // v2.1.1 Async :coupon-api(set, /v1/issue-async)
     public void asyncIssueRequestV1(CouponIssueRequestDto requestDto) {
         asyncCouponIssueServiceV1.issue(requestDto.couponId(), requestDto.userId());
     }
-//
+
 //    public void asyncIssueRequestV2(CouponIssueRequestDto requestDto) {
 //        asyncCouponIssueServiceV2.issue(requestDto.couponId(), requestDto.userId());
 //    }

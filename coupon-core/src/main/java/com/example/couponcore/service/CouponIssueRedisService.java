@@ -12,7 +12,7 @@ import static com.example.couponcore.util.CouponRedisUtils.getIssueRequestKey;
 
 @RequiredArgsConstructor
 @Service
-public class CouponIssueRedisService { // v2.1.0 Async :coupon-api(set, /v1/issue-async)
+public class CouponIssueRedisService { // v2.1.1 Async :coupon-api(set, /v1/issue-async)
 
     private final RedisRepository redisRepository;
 
