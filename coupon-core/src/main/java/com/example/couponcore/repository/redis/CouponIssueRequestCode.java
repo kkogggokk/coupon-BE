@@ -3,7 +3,7 @@ package com.example.couponcore.repository.redis;
 import com.example.couponcore.exception.CouponIssueException;
 import com.example.couponcore.exception.ErrorCode;
 
-public enum CouponIssueRequestCode {
+public enum CouponIssueRequestCode {    // v2.3 Async coupon-api(Script, /v2/issue-async)
     SUCCESS(1),
     DUPLICATED_COUPON_ISSUE(2),
     INVALID_COUPON_ISSUE_QUANTITY(3);
@@ -29,5 +29,3 @@ public enum CouponIssueRequestCode {
         }
     }
 }
-
-//v2.1.2 Async :coupon-api(Script, /v2/issue-async)

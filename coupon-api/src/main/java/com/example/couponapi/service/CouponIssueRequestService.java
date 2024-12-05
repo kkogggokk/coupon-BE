@@ -2,9 +2,9 @@ package com.example.couponapi.service;
 
 import com.example.couponapi.controller.dto.CouponIssueRequestDto;
 import com.example.couponcore.component.DistributeLockExecutor;
-import com.example.couponcore.service.AsyncCouponIssueServiceV1;
-//import com.example.couponcore.service.AsyncCouponIssueServiceV2;
-import com.example.couponcore.component.DistributeLockExecutor;
+import com.example.couponcore.service.AsyncCouponIssueServiceV1;    // v2. Async
+import com.example.couponcore.service.AsyncCouponIssueServiceV2;    // v2.3 Async coupon-api(Script, /v2/issue-async)
+//import com.example.couponcore.component.DistributeLockExecutor;   // v1.2 coupon-api(Redis Lock)
 import com.example.couponcore.service.CouponIssueService;
 import lombok.RequiredArgsConstructor;
 import org.slf4j.Logger;
@@ -16,24 +16,23 @@ import org.springframework.stereotype.Service;
 public class CouponIssueRequestService {
 
     private final CouponIssueService couponIssueService;
-    private final AsyncCouponIssueServiceV1 asyncCouponIssueServiceV1;
-//    private final AsyncCouponIssueServiceV2 asyncCouponIssueServiceV2;
+    private final AsyncCouponIssueServiceV1 asyncCouponIssueServiceV1;  // v2. Async
+    private final AsyncCouponIssueServiceV2 asyncCouponIssueServiceV2;  // v2.3 Async coupon-api(Script, /v2/issue-async)
     private final DistributeLockExecutor distributeLockExecutor;
     private final Logger log = LoggerFactory.getLogger(this.getClass().getSimpleName());
 
-
     public void issueRequestV1(CouponIssueRequestDto requestDto) {
-        /* -----v1.1.0 coupon-api(Synchronized)
+        /* -----v1.1 coupon-api(Synchronized)
         synchronized (this){
             couponIssueService.issue(requestDto.couponId(), requestDto.userId());
         }
 
-        // v1.2.0 coupon-api(Redis Lock)
+        // v1.2 coupon-api(Redis Lock)
         distributeLockExecutor.execute ("lock_"+requestDto.couponId(), 1000,1000,() -> {
             couponIssueService.issue(requestDto.couponId(), requestDto.userId());
         });-----*/
 
-        // v1.3.0 coupon-api(MySQL Lock)
+        // v1.3 coupon-api(MySQL Lock)
         couponIssueService.issue(requestDto.couponId(), requestDto.userId());
         log.info("쿠폰 발급 완료. couponId: %s, userId: %s".formatted(requestDto.couponId(), requestDto.userId()));
     }
@@ -43,9 +42,10 @@ public class CouponIssueRequestService {
         asyncCouponIssueServiceV1.issue(requestDto.couponId(), requestDto.userId());
     }
 
-//    public void asyncIssueRequestV2(CouponIssueRequestDto requestDto) {
-//        asyncCouponIssueServiceV2.issue(requestDto.couponId(), requestDto.userId());
-//    }
+    // v2.3 Async coupon-api(Script, /v2/issue-async)
+    public void asyncIssueRequestV2(CouponIssueRequestDto requestDto) {
+        asyncCouponIssueServiceV2.issue(requestDto.couponId(), requestDto.userId());
+    }
 }
 
 

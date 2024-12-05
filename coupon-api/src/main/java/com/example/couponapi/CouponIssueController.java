@@ -28,11 +28,11 @@ public class CouponIssueController {
     }
 
     // v2.3.0 Async coupon-api(Script, /v2/issue-async)
-//    @PostMapping("/v2/issue-async")
-//    public CouponIssueResponseDto issueAsyncV2(@RequestBody CouponIssueRequestDto body) {
-//        couponIssueRequestService.asyncIssueRequestV2(body);
-//        return new CouponIssueResponseDto(true, null);
-//    }
+    @PostMapping("/v2/issue-async")
+    public CouponIssueResponseDto issueAsyncV2(@RequestBody CouponIssueRequestDto body) {
+        couponIssueRequestService.asyncIssueRequestV2(body);
+        return new CouponIssueResponseDto(true, null);
+    }
 }
 
 /*
