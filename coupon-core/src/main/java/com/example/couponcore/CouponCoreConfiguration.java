@@ -7,7 +7,7 @@ import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 
 @EnableAspectJAutoProxy(exposeProxy = true)
-@EnableCaching
+@EnableCaching  // v2.2 Async coupon-api(Cache, /v1/issue-async)
 @EnableJpaAuditing
 @ComponentScan
 @EnableAutoConfiguration

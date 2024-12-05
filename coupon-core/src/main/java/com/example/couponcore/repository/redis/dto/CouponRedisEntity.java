@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 import static com.example.couponcore.exception.ErrorCode.INVALID_COUPON_ISSUE_DATE;
 import static com.example.couponcore.exception.ErrorCode.INVALID_COUPON_ISSUE_QUANTITY;
 
-public record CouponRedisEntity( //v2.1.1 Async :coupon-api(set, /v1/issue-async)
+public record CouponRedisEntity( // v2.2.0 Async coupon-api(Cache, /v1/issue-async)
         Long id,
         CouponType couponType,
         Integer totalQuantity,
