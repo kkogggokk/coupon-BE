@@ -2,10 +2,7 @@ package com.example.couponcore.model;
 
 import com.example.couponcore.exception.CouponIssueException;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
@@ -16,6 +13,8 @@ import static com.example.couponcore.exception.ErrorCode.INVALID_COUPON_ISSUE_QU
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
+@Setter     // v3.1 DB schema, data auto created
+@ToString   // v3.1 DB schema, data auto created
 @Entity
 @Table(name = "coupons")
 public class Coupon extends BaseTimeEntity {

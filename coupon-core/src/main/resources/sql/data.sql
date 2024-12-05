@@ -1,0 +1,21 @@
+-- -- 쿠폰 데이터 입력 : 쿠폰 발급 날짜를 현재 기준으로 한달 전 ~ 한달 후
+-- INSERT INTO coupons (
+--     title,
+--     coupon_type,
+--     total_quantity,
+--     issued_quantity,
+--     discount_amount,
+--     min_available_amount,
+--     date_issue_start,
+--     date_issue_end
+-- )
+-- VALUES (
+--            '네고왕선착순쿠폰',
+--            'FIRST_COME_FIRST_SERVED',
+--            30000,
+--            0,
+--            100000,
+--            110000,
+--            DATE_SUB(NOW(), INTERVAL 1 MONTH), -- 현재 날짜 기준 한 달 전
+--            DATE_ADD(NOW(), INTERVAL 1 MONTH) -- 현재 날짜 기준 한 달 뒤
+--        );

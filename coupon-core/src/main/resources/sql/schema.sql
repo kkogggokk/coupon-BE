@@ -31,43 +31,17 @@ CREATE TABLE `coupon`.`coupon_issues`
   DEFAULT CHARSET = utf8mb4
     COMMENT '쿠폰 발급 내역';
 
-ALTER TABLE coupons
-    MODIFY COLUMN date_created DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    MODIFY COLUMN date_updated DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP;
-DESCRIBE coupons;
-
--- 데이터 입력 : 쿠폰 발급 날짜를 현재기준으로 한달전~한달후
-INSERT INTO coupons (
-    title,
-    coupon_type,
-    total_quantity,
-    issued_quantity,
-    discount_amount,
-    min_available_amount,
-    date_issue_start,
-    date_issue_end
-)
-VALUES (
-   '네고왕선착순쿠폰',
-   'FIRST_COME_FIRST_SERVED',
-   30000,
-   0,
-   100000,
-   110000,
-   DATE_SUB(NOW(), INTERVAL 1 MONTH), -- 현재 날짜 기준 한 달 전
-   DATE_ADD(NOW(), INTERVAL 1 MONTH) -- 현재 날짜 기준 한 달 뒤
-);
+-- ALTER TABLE coupons
+--     MODIFY COLUMN date_created DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+--     MODIFY COLUMN date_updated DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP;
+-- DESCRIBE coupons;
 
 
---
 
-show databases;
-use coupon;
-show tables;
-
-select * from coupons;
-select * from coupon.coupon_issues;
-
--- drop table coupons;
+-- show databases;
+-- use coupon;
+-- show tables;
+-- select * from coupons;
+-- select * from coupon.coupon_issues;
 
 

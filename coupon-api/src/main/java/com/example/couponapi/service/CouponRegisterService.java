@@ -20,7 +20,7 @@ import static com.example.couponcore.exception.ErrorCode.COUPON_NOT_EXIST;
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
-public class CouponRegisterService {    // v3.0 kmong
+public class CouponRegisterService {    // v3.1 DB schema, data auto created
 
     private final CouponJpaRepository couponJpaRepository;
     private final CouponIssueJpaRepository couponIssueJpaRepository;
