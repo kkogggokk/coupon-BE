@@ -29,7 +29,7 @@ public class CouponIssueService {
         Coupon coupon = findCouponWithLock(couponId);   // CHECK - findCoupon, findCouponWithLock
         coupon.issue();
         saveCouponIssue(couponId, userId);
-//        publishCouponEvent(coupon);
+        publishCouponEvent(coupon);
     }
 
     // v1.1 ~ v1.2
