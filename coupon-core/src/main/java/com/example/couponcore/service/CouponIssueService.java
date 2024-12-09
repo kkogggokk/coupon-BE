@@ -3,7 +3,7 @@ package com.example.couponcore.service;
 import com.example.couponcore.exception.CouponIssueException;
 import com.example.couponcore.model.Coupon;
 import com.example.couponcore.model.CouponIssue;
-//import com.example.couponcore.model.event.CouponIssueCompleteEvent;   // v3
+import com.example.couponcore.model.event.CouponIssueCompleteEvent;   // v3
 import com.example.couponcore.repository.mysql.CouponIssueJpaRepository;
 import com.example.couponcore.repository.mysql.CouponIssueRepository;
 import com.example.couponcore.repository.mysql.CouponJpaRepository;
@@ -29,7 +29,7 @@ public class CouponIssueService {
         Coupon coupon = findCouponWithLock(couponId);   // CHECK - findCoupon, findCouponWithLock
         coupon.issue();
         saveCouponIssue(couponId, userId);
-//        publishCouponEvent(coupon);
+        publishCouponEvent(coupon);
     }
 
     // v1.1 ~ v1.2
@@ -65,11 +65,11 @@ public class CouponIssueService {
         }
     }
 
-//    private void publishCouponEvent(Coupon coupon) {  // v3
-//        if (coupon.isIssueComplete()) {
-//            applicationEventPublisher.publishEvent(new CouponIssueCompleteEvent(coupon.getId()));
-//        }
-//    }
+    private void publishCouponEvent(Coupon coupon) {  // v3
+        if (coupon.isIssueComplete()) {
+            applicationEventPublisher.publishEvent(new CouponIssueCompleteEvent(coupon.getId()));
+        }
+    }
 }
 
 
