@@ -1,11 +1,14 @@
 server:
-  port: 8081
+  port: 8082
   tomcat:
     mbeanregistry:
       enabled: true
 spring:
   application:
     name: coupon-api
+  config:
+    activate:
+      on-profile: docker
   datasource:
     url: jdbc:mysql://coupon-mysql:3306/coupon
     username: abcd
