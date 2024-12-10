@@ -12,8 +12,10 @@ import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import static com.example.couponcore.exception.ErrorCode.COUPON_NOT_EXIST;
-import static com.example.couponcore.exception.ErrorCode.DUPLICATED_COUPON_ISSUE;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import static com.example.couponcore.exception.ErrorCode.*;
 
 @RequiredArgsConstructor
 @Service
@@ -23,9 +25,12 @@ public class CouponIssueService {
     private final CouponIssueJpaRepository couponIssueJpaRepository;
     private final CouponIssueRepository couponIssueRepository;
     private final ApplicationEventPublisher applicationEventPublisher;
+    private static final Logger log = LoggerFactory.getLogger(CouponIssueService.class);
 
     @Transactional
     public void issue(long couponId, long userId) {
+
+        checkAlreadyIssuance(couponId, userId);         // 중복 발급 여부 확인
         Coupon coupon = findCouponWithLock(couponId);   // CHECK - findCoupon, findCouponWithLock
         coupon.issue();
         saveCouponIssue(couponId, userId);
@@ -68,6 +73,9 @@ public class CouponIssueService {
     private void publishCouponEvent(Coupon coupon) {  // v3
         if (coupon.isIssueComplete()) {
             applicationEventPublisher.publishEvent(new CouponIssueCompleteEvent(coupon.getId()));
+            log.info("Coupon issue event published for couponId: {}", coupon.getId());
+        } else {
+            log.warn("Coupon not in issue-complete state. Skipping event for couponId: {}", coupon.getId());
         }
     }
 }
