@@ -29,7 +29,6 @@ public class CouponIssueService {
 
     @Transactional
     public void issue(long couponId, long userId) {
-
         checkAlreadyIssuance(couponId, userId);         // 중복 발급 여부 확인
         Coupon coupon = findCouponWithLock(couponId);   // CHECK - findCoupon, findCouponWithLock
         coupon.issue();

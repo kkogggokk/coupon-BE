@@ -5,15 +5,15 @@ server:
       enabled: true
 spring:
   application:
-    name: coupon-api
+    name: coupon-consumer
   config:
     activate:
       on-profile: docker
   datasource:
     url: jdbc:mysql://coupon-mysql:3306/coupon
+    driver-class-name: com.mysql.cj.jdbc.Driver
     username: abcd
     password: 1234
-    driver-class-name: com.mysql.cj.jdbc.Driver
   data:
     redis:
       host: coupon-redis
@@ -23,6 +23,7 @@ spring:
       ddl-auto: update
     show-sql: true
 
+# prometheus setting
 management:
   metrics:
     tags:
@@ -30,4 +31,12 @@ management:
   endpoints:
     web:
       exposure:
-        include: prometheus
+        include: "*"
+  endpoint:
+    prometheus:
+      enabled: true
+  health:
+    livenessstate:
+      enabled: true
+    readinessstate:
+      enabled: true

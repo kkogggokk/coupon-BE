@@ -16,7 +16,7 @@ import static com.example.couponcore.util.CouponRedisUtils.getIssueRequestQueueK
 
 @RequiredArgsConstructor
 @Service
-public class AsyncCouponIssueServiceV1 {    // v2.*
+public class AsyncCouponIssueServiceV1 {    // v2.* 기능2: 발급 요청 처리 - 비동기 구조
 
     private final RedisRepository redisRepository;
     private final CouponIssueRedisService couponIssueRedisService;
@@ -25,7 +25,7 @@ public class AsyncCouponIssueServiceV1 {    // v2.*
     private final ObjectMapper objectMapper = new ObjectMapper();
 //    private final CouponIssueService couponIssueService;
 
-    public void issue(long couponId, long userId) {
+    public void issue(long couponId, long userId) { // 발급 가능 여부 검증
         /* // v2.1.* Async coupon-api(Set)
         Coupon coupon = couponIssueService.findCoupon(couponId);
         distributeLockExecutor.execute("lock_%s".formatted(couponId), 3000, 3000, () -> {   // v2.1.2 Async coupon-api(set-distributeLock)
@@ -49,7 +49,7 @@ public class AsyncCouponIssueServiceV1 {    // v2.*
         });
     }
 
-    private void issueRequest(long couponId, long userId) { // 쿠폰 발급 트랜잭션
+    private void issueRequest(long couponId, long userId) { // 발급 성공 대상 저장
         CouponIssueRequest issueRequest = new CouponIssueRequest(couponId, userId);
         try {
             String value = objectMapper.writeValueAsString(issueRequest);

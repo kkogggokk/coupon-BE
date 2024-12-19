@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 @Service
 public class CouponIssueRequestService {
-
     private final CouponIssueService couponIssueService;
     private final AsyncCouponIssueServiceV1 asyncCouponIssueServiceV1;  // v2. Async
     private final AsyncCouponIssueServiceV2 asyncCouponIssueServiceV2;  // v2.3 Async coupon-api(Script, /v2/issue-async)
@@ -36,6 +35,7 @@ public class CouponIssueRequestService {
         couponIssueService.issue(requestDto.couponId(), requestDto.userId());
         log.info("쿠폰 발급 완료. couponId: %s, userId: %s".formatted(requestDto.couponId(), requestDto.userId()));
     }
+
 
     // v2.1.1 Async :coupon-api(set, /v1/issue-async)
     public void asyncIssueRequestV1(CouponIssueRequestDto requestDto) {
