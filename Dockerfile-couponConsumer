@@ -6,8 +6,10 @@ RUN ./gradlew build -x test
 
 FROM eclipse-temurin:17-jre
 WORKDIR /app
-COPY ../setup_node_exporter.sh /usr/local/bin/setup_node_exporter.sh
+COPY setup_node_exporter.sh /usr/local/bin/setup_node_exporter.sh
 RUN chmod +x /usr/local/bin/setup_node_exporter.sh
 COPY --from=builder /home/gradle/coupon-consumer/build/libs/coupon-consumer.jar /app/coupon-consumer.jar
 CMD ["/bin/sh", "-c", "/usr/local/bin/setup_node_exporter.sh && java -jar -Dspring.profiles.active=docker /app/coupon-consumer.jar"]
 EXPOSE 8082 9100
+
+
