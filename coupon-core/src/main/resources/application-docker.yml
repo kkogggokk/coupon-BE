@@ -1,0 +1,28 @@
+spring:
+  config:
+    activate:
+      on-profile: docker
+  datasource:
+    hikari:
+      jdbc-url: jdbc:mysql://coupon-mysql:3306/coupon?useUnicode=yes&characterEncoding=UTF-8&rewriteBatchedStatements=true
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      maximum-pool-size: 10
+      max-lifetime: 30000
+      connection-timeout: 3000
+      username: abcd
+      password: 1234
+  sql:
+    init:
+      mode: always
+  data:
+    redis:
+      host: coupon-redis
+      port: 6379
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+

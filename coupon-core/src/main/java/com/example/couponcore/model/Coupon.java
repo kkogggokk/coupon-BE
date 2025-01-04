@@ -19,7 +19,7 @@ import static com.example.couponcore.exception.ErrorCode.INVALID_COUPON_ISSUE_QU
 @Entity
 @Table(name = "coupons")
 public class Coupon extends BaseTimeEntity {
-
+    // v0.2.0 MySQL Entity setting
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -48,6 +48,7 @@ public class Coupon extends BaseTimeEntity {
     @Column(nullable = false)
     private LocalDateTime dateIssueEnd;
 
+    // v0.2.1 쿠폰 검증 기능(coupon validataion)
     public boolean availableIssueQuantity() {
         if (totalQuantity == null) {
             return true;

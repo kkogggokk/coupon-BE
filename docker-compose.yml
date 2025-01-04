@@ -1,0 +1,42 @@
+---
+services:
+  coupon-api:
+    image: coupon-api:latest
+    build:
+      context: .
+      dockerfile: ./Dockerfile-couponAPI
+    container_name: coupon-api
+    networks:
+      - coupon-network
+    ports:
+      - "8081:8081"
+    environment:
+        - SPRING_PROFILES_ACTIVE=docker
+        - SPRING_DATASOURCE_URL=jdbc:mysql://coupon-mysql:3306/coupon
+        - SPRING_DATASOURCE_USERNAME=abcd
+        - SPRING_DATASOURCE_PASSWORD=1234
+        - SPRING_DATA_REDIS_HOST=coupon-redis
+        - SPRING_DATA_REDIS_PORT=6379
+
+  coupon-consumer:
+    image: coupon-consumer:latest
+    build:
+      context: .
+      dockerfile: ./Dockerfile-couponConsumer
+    container_name: coupon-consumer
+    networks:
+      - coupon-network
+    ports:
+      - "8082:8082"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - SPRING_DATASOURCE_URL=jdbc:mysql://coupon-mysql:3306/coupon
+      - SPRING_DATASOURCE_USERNAME=abcd
+      - SPRING_DATASOURCE_PASSWORD=1234
+      - SPRING_DATA_REDIS_HOST=coupon-redis
+      - SPRING_DATA_REDIS_PORT=6379
+
+networks:
+  coupon-network:
+    name: coupon-network  # 명시적으로 네트워크 이름 설정
+    external: true        # Compose가 해당 네트워크를 외부 네트워크로 인식하도록 설정
