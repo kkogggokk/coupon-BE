@@ -9,6 +9,7 @@ apt-get update && apt-get install -y \
   redis-tools \
   curl \
   tar \
+  iproute2 iputils-ping net-tools iftop \
   && apt-get clean
 
 # Node Exporter 다운로드 및 설치
